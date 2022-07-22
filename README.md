@@ -1,1 +1,1 @@
-# Weather-Dashboard-Morales
+# Weather Dashboard - Lorena Morales
