@@ -22,6 +22,7 @@ header{
 
 main{
     display: flex;
+    
 }
 
 #search-form{
@@ -33,7 +34,7 @@ main{
 }
 
 input{
-    background-color: transparent;
+    background-color: var(--white);
     border-radius: 10px;
     padding: 15px;
 }
@@ -61,4 +62,14 @@ button:hover{
 .buttonAppend {
     display: flex;
     flex-direction: column;
+}
+
+.p-3 {
+    background-color: var(--additional);
+    border: 2px solid var(--background);
+}
+
+.col {
+    padding-left: 0;
+    padding-right: 10px;
 }

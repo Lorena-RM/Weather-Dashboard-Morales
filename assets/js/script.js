@@ -4,6 +4,7 @@ const cityInputEl = document.querySelector(".searchBox");
 const searchForm = document.querySelector("#search-form");
 const section = document.querySelector(".appendsection");
 const btnAppend = document.querySelector(".buttonAppend");
+const hidden = document.querySelector(".hidden");
 
 let city = localStorage.getItem("city")
 
@@ -79,7 +80,7 @@ function fiveDayWeather (lat, lon) {
             //console.log(humidity)
             let uvi = data.current.uvi
             //console.log(uvi)
-
+            
             
 
             renderInfoCurrent(currentDay, temp, wind, humidity, uvi);
@@ -116,7 +117,7 @@ function renderInfoCurrent(currentDay, temp, wind, humidity, uvi) {
     container.append(cityHeader, cityTemp, cityWind, cityHumidity, cityUvi);
 
     section.append(container);
-
+    
 }
 
 function renderFutureWeather () {
