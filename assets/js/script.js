@@ -2,7 +2,8 @@
 const searchBtnEl = document.querySelector(".searchBtn");
 const cityInputEl = document.querySelector(".searchBox");
 const searchForm = document.querySelector("#search-form");
-const section = document.querySelector(".appendsection")
+const section = document.querySelector(".appendsection");
+const btnAppend = document.querySelector(".buttonAppend");
 
 let city = localStorage.getItem("city")
 
@@ -49,6 +50,9 @@ function searchCity () {
             fiveDayWeather (lat, lon);
 
         })
+        .catch (function (error) {
+            console.log(error);
+        });
 
 }
 
@@ -64,48 +68,71 @@ function fiveDayWeather (lat, lon) {
         .then(function(data){
             console.log(data);
             let currentDay = data.current.dt
-            console.log(currentDay)
+            let formatDate = moment(currentDay).format('MM/DD/YYYY')
+            console.log(formatDate);
+            //console.log(currentDay)
             let temp = data.current.temp
-            console.log(temp)
+            //console.log(temp)
             let wind = data.current.wind_speed
-            console.log(wind)
+            //console.log(wind)
             let humidity = data.current.humidity
-            console.log(humidity)
+            //console.log(humidity)
             let uvi = data.current.uvi
-            console.log(uvi)
+            //console.log(uvi)
+
+            
 
             renderInfoCurrent(currentDay, temp, wind, humidity, uvi);
+            renderFutureWeather ();
         })
 }
 
 function renderInfoCurrent(currentDay, temp, wind, humidity, uvi) {
+    section.innerHTML = "";
+    var formatDate = moment().format('MM/DD/YYYY')
+
     let userCity = cityInputEl.value.trim();
     var container = document.createElement("div")
     container.classList.add("container");
     container.classList.add("weather-section");
+
     var cityHeader = document.createElement("h2")
     cityHeader.classList.add("info");
-    var citybody = document.createElement("p")
-    citybody.classList.add("info")
-    console.log(cityHeader);
-    cityHeader.textContent = `${userCity}: ${currentDay}`
-    container.append(cityHeader)
+    var cityTemp = document.createElement("p")
+    cityTemp.classList.add("info")
+    var cityWind = document.createElement("p");
+    cityWind.classList.add("info")
+    var cityHumidity = document.createElement("p");
+    cityHumidity.classList.add("info")
+    var cityUvi = document.createElement("p");
+    cityUvi.classList.add("info")
+    
+    cityHeader.textContent = `${userCity} (${formatDate})`
+    cityTemp.textContent = `Temp: ${temp}`;
+    cityWind.textContent = `Wind: ${wind}`;
+    cityHumidity.textContent = `Humidity: ${humidity}`;
+    cityUvi.textContent = `UV Index: ${uvi}`;
 
+    container.append(cityHeader, cityTemp, cityWind, cityHumidity, cityUvi);
 
     section.append(container);
 
 }
 
+function renderFutureWeather () {
+
+}
+
 function renderButton () {
     var getItem = JSON.parse(localStorage.getItem("city"));
-    
+    btnAppend.innerHTML = "";
 
     if (city) {
         for (let index = 0; index < getItem.length; index++) {
             const createBtnEl = document.createElement("button");
             createBtnEl.classList.add("mb-1");
             createBtnEl.textContent = getItem[index];
-            searchForm.append(createBtnEl);
+            btnAppend.append(createBtnEl);
         } 
     }else {
         console.log("none")
