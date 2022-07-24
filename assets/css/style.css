@@ -20,11 +20,15 @@ header{
     border: 5px inset var(--white);
 }
 
+main{
+    display: flex;
+}
+
 #search-form{
     display: flex;
     flex-direction: column;
     width: 25%;
-    margin: 15px;
+    margin-left: 10px;
     
 }
 
@@ -44,4 +48,12 @@ button:hover{
     background-color: rgba(182, 116, 194, 0.489);
 }
 
+.weather-section{
+    border: 2px solid var(--background);
+    width: 100%;
+    padding: 15px;
+}
 
+.hidden {
+    display: none;
+}
