@@ -80,6 +80,18 @@ function fiveDayWeather (lat, lon) {
             //console.log(humidity)
             let uvi = data.current.uvi
             //console.log(uvi)
+            let day1 = data.daily[0];
+            console.log(day1);
+            let day2 = data.daily[1];
+            console.log(day2);
+            let day3 = data.daily[2];
+            console.log(day3);
+            let day4 = data.daily[3];
+            console.log(day4);
+            let day5 = data.daily[4];
+            console.log(day5);
+            
+            //let future5DayArray = 
             
             
 
