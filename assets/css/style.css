@@ -28,7 +28,7 @@ main{
 #search-form{
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 20%;
     margin-left: 10px;
     
 }
@@ -47,6 +47,14 @@ button{
 
 button:hover{
     background-color: rgba(182, 116, 194, 0.489);
+}
+
+.appendsection {
+    padding: 0px;
+}
+
+.container {
+    padding: 0;
 }
 
 .weather-section{
@@ -76,3 +84,6 @@ button:hover{
     margin-bottom: 15px;
 }
 
+.searchBtn {
+    width:100%;
+}
