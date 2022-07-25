@@ -194,3 +194,11 @@ function renderButton () {
 
 renderButton ();
 
+
+//fix console.log(none)
+//make serach buttons work
+//add images 
+//change date format
+//media a responsive website 
+// fix form search
+
