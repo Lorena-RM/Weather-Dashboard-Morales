@@ -81,22 +81,22 @@ function fiveDayWeather (lat, lon) {
             let uvi = data.current.uvi
             //console.log(uvi)
             let day1 = data.daily[0];
-            console.log(day1);
+            //console.log(day1);
             let day2 = data.daily[1];
-            console.log(day2);
+            //console.log(day2);
             let day3 = data.daily[2];
-            console.log(day3);
+            //console.log(day3);
             let day4 = data.daily[3];
-            console.log(day4);
+            //console.log(day4);
             let day5 = data.daily[4];
-            console.log(day5);
+            //console.log(day5);
             
-            //let future5DayArray = 
-            
+            let future5DayArray = [day1,day2,day3,day4,day5]
+            //console.log(future5DayArray);
             
 
             renderInfoCurrent(currentDay, temp, wind, humidity, uvi);
-            renderFutureWeather ();
+            renderFutureWeather (future5DayArray);
         })
 }
 
@@ -106,8 +106,7 @@ function renderInfoCurrent(currentDay, temp, wind, humidity, uvi) {
 
     let userCity = cityInputEl.value.trim();
     var container = document.createElement("div")
-    container.classList.add("container");
-    container.classList.add("weather-section");
+    container.classList.add("container", "weather-section");
 
     var cityHeader = document.createElement("h2")
     cityHeader.classList.add("info");
@@ -118,22 +117,62 @@ function renderInfoCurrent(currentDay, temp, wind, humidity, uvi) {
     var cityHumidity = document.createElement("p");
     cityHumidity.classList.add("info")
     var cityUvi = document.createElement("p");
-    cityUvi.classList.add("info")
+    cityUvi.classList.add("info");
+    var headerFuture = document.createElement("h2");
+    headerFuture.classList.add("mb-3", "mt-3");
     
     cityHeader.textContent = `${userCity} (${formatDate})`
-    cityTemp.textContent = `Temp: ${temp}`;
-    cityWind.textContent = `Wind: ${wind}`;
-    cityHumidity.textContent = `Humidity: ${humidity}`;
+    cityTemp.textContent = `Temp: ${temp} °F`;
+    cityWind.textContent = `Wind: ${wind} MPH`;
+    cityHumidity.textContent = `Humidity: ${humidity}%`;
     cityUvi.textContent = `UV Index: ${uvi}`;
+    headerFuture.textContent = "5-Day Forecast:"
 
-    container.append(cityHeader, cityTemp, cityWind, cityHumidity, cityUvi);
+    container.append(cityHeader, cityTemp, cityWind, cityHumidity, cityUvi,);
 
-    section.append(container);
+
+
+    section.append(container, headerFuture);
     
 }
 
-function renderFutureWeather () {
+function renderFutureWeather (future5DayArray) {
+    var formatDate = moment().format('MM/DD/YYYY');
+    var secContainer = document.createElement("div");
+    secContainer.classList.add("container");
+    var cardConatiner = document.createElement("div");
+    cardConatiner.classList.add("row", "row-col-5", "cardcon");
+    secContainer.append(cardConatiner);
+    for (let index = 0; index < future5DayArray.length; index++) {
+        const element = future5DayArray[index];          
+        //console.log(element);  
+        var col = document.createElement("div");
+        col.classList.add("col");
+        var textBoxEl = document.createElement("div");
+        textBoxEl.classList.add("p-3");
+        var textDay = document.createElement("h4");
+        var textTemp = document.createElement("p");
+        var textWind = document.createElement("p");
+        var textHumidity = document.createElement("p");
+        var textUvi = document.createElement("p");
 
+        textDay.textContent = future5DayArray[index].dt;
+        //console.log(textDay);
+        textTemp.textContent = `Temp: ${future5DayArray[index].temp.max} °F`;
+        //console.log(textTemp);
+        textWind.textContent = `Wind: ${future5DayArray[index].wind_speed} MPH`;
+        //console.log(textWind);
+        textHumidity.textContent = `Humidity: ${future5DayArray[index].humidity}%`;
+        //console.log(textHumidity);
+        textUvi.textContent = `UV index: ${future5DayArray[index].uvi}`;
+        //console.log(textUvi);
+
+        textBoxEl.append(textDay, textTemp, textWind, textHumidity, textUvi)
+        col.append(textBoxEl);
+        cardConatiner.append(col);
+
+    }
+    section.append(secContainer);
 }
 
 function renderButton () {
