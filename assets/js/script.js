@@ -8,53 +8,50 @@ const hidden = document.querySelector(".hidden");
 let citiesAlreadySearched =
   JSON.parse(localStorage.getItem("citiesAlreadySearched")) || [];
 
-// let citiesAlreadySearched;
-// if (JSON.parse(localStorage.getItem('citiesAlreadySearched'))) {
-//     citiesAlreadySearched = JSON.parse(localStorage.get('citiesAlreadySearched'))
-// } else { citiesAlreadySearched = [] }
 
 const apiKeyVar = "cc74a924b91e51b9e01d7af51fb380f6";
 
-searchBtnEl.addEventListener("click", () => {
-  //event.preventDefault();
-  searchCity();
-  saveLocalStorage();
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let userCity = cityInputEl.value.trim();
+  searchCity(userCity);
 });
 
 function saveToLocalStorage(cityName) {
   // if citiesAlreadySearched does not contain the cityName, then add city to the array and renderbuttons()
 
-  if(!citiesAlreadySearched.includes(cityName)){
-    citiesAlreadySearched.push(cityName)
-    localStorage.setItem("citiesAlreadySearched", JSON.stringify(citiesAlreadySearched))
+  if (!citiesAlreadySearched.includes(cityName)) {
+    citiesAlreadySearched.push(cityName);
+    localStorage.setItem(
+      "citiesAlreadySearched",
+      JSON.stringify(citiesAlreadySearched)
+    );
     renderButtons();
   }
-
 }
 
-function searchCity() {
-  let userCity = cityInputEl.value.trim();
+function searchCity(cityName) {
   //console.log ("this is working!");
 
-  let requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${apiKeyVar}`;
+  let requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKeyVar}`;
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       console.log(data);
-      const cityName = data[0].name;
-      saveToLocalStorage(cityName);
+      const cityResponse = data[0].name;
+      saveToLocalStorage(cityResponse);
       let lat = data[0].lat;
       let lon = data[0].lon;
-      fiveDayWeather(lat, lon);
+      fiveDayWeather(lat, lon, cityResponse);
     })
     .catch(function (error) {
       console.log(error);
     });
 }
 
-function fiveDayWeather(lat, lon) {
+function fiveDayWeather(lat, lon, cityName) {
   let requestUrl2 = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKeyVar}`;
 
   //let requestUrl2 = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKeyVar2}`
@@ -65,7 +62,7 @@ function fiveDayWeather(lat, lon) {
     })
     .then(function (data) {
       console.log(data);
-      let currentDay = data.current.dt;
+      let currentDay = data.current.dt*1000;
       let formatDate = moment(currentDay).format("MM/DD/YYYY");
       console.log(formatDate);
       let icon = data.current.weather[0].icon;
@@ -93,17 +90,17 @@ function fiveDayWeather(lat, lon) {
       let future5DayArray = [day1, day2, day3, day4, day5];
       //console.log(future5DayArray);
 
-      renderInfoCurrent(currentDay, icon, temp, wind, humidity, uvi);
+      renderInfoCurrent(cityName, icon, temp, wind, humidity, uvi);
       renderFutureWeather(future5DayArray);
     });
 }
 
-function renderInfoCurrent(currentDay, icon, temp, wind, humidity, uvi) {
+function renderInfoCurrent(cityName, icon, temp, wind, humidity, uvi) {
   section.innerHTML = "";
   var formatDate = moment().format("MM/DD/YYYY");
   var img = document.createElement("img");
-  img.src = "http://openweathermap.org/img/wn/10d@2x.png";
-  let userCity = cityInputEl.value.trim();
+  img.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+ 
   var container = document.createElement("div");
   container.classList.add("container", "weather-section");
 
@@ -120,7 +117,8 @@ function renderInfoCurrent(currentDay, icon, temp, wind, humidity, uvi) {
   var headerFuture = document.createElement("h2");
   headerFuture.classList.add("mb-3", "mt-3");
 
-  cityHeader.textContent = `${userCity} (${formatDate}) ${icon}`;
+  cityHeader.innerHTML = `${cityName} (${formatDate})`;
+  cityHeader.append(img)
   cityTemp.textContent = `Temp: ${temp} °F`;
   cityWind.textContent = `Wind: ${wind} MPH`;
   cityHumidity.textContent = `Humidity: ${humidity}%`;
@@ -141,7 +139,7 @@ function renderFutureWeather(future5DayArray) {
   for (let index = 0; index < future5DayArray.length; index++) {
     const element = future5DayArray[index];
     //console.log(element);
-    var formatDate = moment(future5DayArray[index].dt).format("MM/DD/YYYY");
+    var formatDate = moment(future5DayArray[index].dt*1000).format("MM/DD/YYYY");
     console.log(formatDate);
     var col = document.createElement("div");
     col.classList.add("col");
@@ -172,22 +170,24 @@ function renderFutureWeather(future5DayArray) {
 }
 
 function renderButtons() {
-  var citiesAlreadySearched = JSON.parse(localStorage.getItem("citiesAlreadySearched")) || [];
+  var citiesAlreadySearched =
+    JSON.parse(localStorage.getItem("citiesAlreadySearched")) || [];
   btnAppend.innerHTML = "";
 
-
-    for (let index = 0; index < citiesAlreadySearched.length; index++) {
-      const createBtnEl = document.createElement("button");
-      createBtnEl.classList.add("mb-1");
-      createBtnEl.textContent = citiesAlreadySearched[index];
-      btnAppend.append(createBtnEl);
-    }
-  
+  for (let index = 0; index < citiesAlreadySearched.length; index++) {
+    const createBtnEl = document.createElement("button");
+    createBtnEl.classList.add("mb-1");
+    createBtnEl.textContent = citiesAlreadySearched[index];
+    createBtnEl.addEventListener("click", () => {
+      searchCity(citiesAlreadySearched[index]);
+    });
+    btnAppend.append(createBtnEl);
+  }
 }
 
 renderButtons();
 
-//fix console.log(none)
+
 //make serach buttons work
 //add images
 //change date format
