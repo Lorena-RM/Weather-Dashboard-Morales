@@ -31,7 +31,7 @@ function saveToLocalStorage(cityName) {
 }
 
 function searchCity(cityName) {
-  //console.log ("this is working!");
+  
 
   let requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKeyVar}`;
   fetch(requestUrl)
@@ -39,7 +39,7 @@ function searchCity(cityName) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      
       const cityResponse = data[0].name;
       saveToLocalStorage(cityResponse);
       let lat = data[0].lat;
@@ -61,12 +61,12 @@ function fiveDayWeather(lat, lon, cityName) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      
       let currentDay = data.current.dt*1000;
-      let formatDate = moment(currentDay).format("MM/DD/YYYY");
-      console.log(formatDate);
+      //let formatDate = moment(currentDay).format("MM/DD/YYYY");
+      
       let icon = data.current.weather[0].icon;
-      console.log(icon);
+      
      
       //console.log(currentDay)
       let temp = data.current.temp;
@@ -100,7 +100,7 @@ function renderInfoCurrent(cityName, icon, temp, wind, humidity, uvi) {
   section.innerHTML = "";
   var formatDate = moment().format("MM/DD/YYYY");
   var img = document.createElement("img");
-  img.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+  img.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
  
   var container = document.createElement("div");
   container.classList.add("container", "weather-section");
