@@ -7,17 +7,22 @@
 
 body{
     background-color: var(--text);
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 header{
     background-color:peachpuff;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Righteous', cursive;
     text-align: center;
     background-color: var(--background);
     color: var(--white);
     padding: 20px;
     margin: 10px;
     border: 5px inset var(--white);
+}
+
+h1 {
+    font-size: 3.5rem;
 }
 
 main{
@@ -46,7 +51,7 @@ button{
 }
 
 button:hover{
-    background-color: rgba(182, 116, 194, 0.489);
+    background-color: var(--white);
 }
 
 .appendsection {
