@@ -162,7 +162,7 @@ function renderFutureWeather(future5DayArray) {
 
     var img = document.createElement("img");
     let dailyIcons = future5DayArray[index].weather[0].icon;
-    img.src = `http://openweathermap.org/img/wn/${dailyIcons}@2x.png`;
+    img.src = `https://openweathermap.org/img/wn/${dailyIcons}@2x.png`;
    
     var col = document.createElement("div");
     col.classList.add("col");
