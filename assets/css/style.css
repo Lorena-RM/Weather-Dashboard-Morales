@@ -113,3 +113,16 @@ button:hover{
     border-radius: 5px;
     color: var(--white);
 }
+
+@media screen and (max-width: 600px) {
+
+    .col {
+        width: 200%;
+        
+    }
+    .media-p {
+        padding: 4rem!important;
+    }
+
+    
+}

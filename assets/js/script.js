@@ -167,7 +167,7 @@ function renderFutureWeather(future5DayArray) {
     var col = document.createElement("div");
     col.classList.add("col");
     var textBoxEl = document.createElement("div");
-    textBoxEl.classList.add("p-3");
+    textBoxEl.classList.add("p-3", "media-p");
     var textDay = document.createElement("h4");
     var textTemp = document.createElement("p");
     var textWind = document.createElement("p");
