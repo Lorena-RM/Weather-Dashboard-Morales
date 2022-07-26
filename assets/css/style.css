@@ -65,7 +65,6 @@ button:hover{
 }
 
 
-
 .buttonAppend {
     display: flex;
     flex-direction: column;
@@ -85,4 +84,32 @@ button:hover{
 
 .searchBtn {
     width:100%;
+}
+
+.uviColorLow {
+    background-color: green;
+    padding: 2px 30px;
+    border-radius: 5px;
+    color: var(--white);
+}
+
+.uviCodeModerate {
+    background-color: orange;
+    padding: 2px 30px;
+    border-radius: 5px;
+    color: var(--white);
+}
+
+.uviCodeHigh {
+    background-color: red;
+    padding: 2px 30px;
+    border-radius: 5px;
+    color: var(--white);
+}
+
+.uviCodeVeryHigh {
+    background-color: darkred;
+    padding: 2px 30px;
+    border-radius: 5px;
+    color: var(--white);
 }

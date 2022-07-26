@@ -115,6 +115,8 @@ function renderInfoCurrent(cityName, icon, temp, wind, humidity, uvi) {
   cityHumidity.classList.add("info");
   var cityUvi = document.createElement("p");
   cityUvi.classList.add("info");
+  let uviCode = document.createElement("span");
+  uviCode.classList.add("uviColorCode");
   var headerFuture = document.createElement("h2");
   headerFuture.classList.add("mb-3", "mt-3");
 
@@ -123,9 +125,11 @@ function renderInfoCurrent(cityName, icon, temp, wind, humidity, uvi) {
   cityTemp.textContent = `Temp: ${temp} °F`;
   cityWind.textContent = `Wind: ${wind} MPH`;
   cityHumidity.textContent = `Humidity: ${humidity}%`;
-  cityUvi.textContent = `UV Index: ${uvi}`;
+  cityUvi.textContent = "UV Index: ";
+  uviCode.textContent = `${uvi}`;
   headerFuture.textContent = "5-Day Forecast:";
 
+  cityUvi.append(uviCode);
   container.append(cityHeader, cityTemp, cityWind, cityHumidity, cityUvi);
 
   section.append(container, headerFuture);
@@ -155,15 +159,17 @@ function renderFutureWeather(future5DayArray) {
     var textWind = document.createElement("p");
     var textHumidity = document.createElement("p");
     var textUvi = document.createElement("p");
+    let spanUvi = document.createElement("span");
 
     textDay.textContent = formatDate;
     textTemp.textContent = `Temp: ${future5DayArray[index].temp.max} °F`;
     textWind.textContent = `Wind: ${future5DayArray[index].wind_speed} MPH`;
     textHumidity.textContent = `Humidity: ${future5DayArray[index].humidity}%`;
-    textUvi.textContent = `UV index: ${future5DayArray[index].uvi}`;
-    textBoxEl.appendChild(img)
+    textUvi.textContent = "UV index: ";
+    spanUvi.textContent = `${future5DayArray[index].uvi}`
 
-    textBoxEl.append(textDay,  textTemp, textWind, textHumidity, textUvi);
+    textUvi.append(spanUvi);
+    textBoxEl.append(textDay, img, textTemp, textWind, textHumidity, textUvi);
     col.append(textBoxEl);
     cardConatiner.append(col);
   }
