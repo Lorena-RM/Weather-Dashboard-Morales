@@ -6,7 +6,7 @@ const btnAppend = document.querySelector(".buttonAppend");
 const hidden = document.querySelector(".hidden");
 
 let citiesAlreadySearched =
-  JSON.parse(localStorage.getItem("citiesAlreadySearched")) || [];
+JSON.parse(localStorage.getItem("citiesAlreadySearched")) || [];
 
 
 const apiKeyVar = "cc74a924b91e51b9e01d7af51fb380f6";
@@ -67,6 +67,7 @@ function fiveDayWeather(lat, lon, cityName) {
       console.log(formatDate);
       let icon = data.current.weather[0].icon;
       console.log(icon);
+     
       //console.log(currentDay)
       let temp = data.current.temp;
       //console.log(temp)
@@ -91,7 +92,7 @@ function fiveDayWeather(lat, lon, cityName) {
       //console.log(future5DayArray);
 
       renderInfoCurrent(cityName, icon, temp, wind, humidity, uvi);
-      renderFutureWeather(future5DayArray);
+      renderFutureWeather(future5DayArray, );
     });
 }
 
@@ -117,7 +118,7 @@ function renderInfoCurrent(cityName, icon, temp, wind, humidity, uvi) {
   var headerFuture = document.createElement("h2");
   headerFuture.classList.add("mb-3", "mt-3");
 
-  cityHeader.innerHTML = `${cityName} (${formatDate})`;
+  cityHeader.textContent = `${cityName} (${formatDate})`;
   cityHeader.append(img)
   cityTemp.textContent = `Temp: ${temp} °F`;
   cityWind.textContent = `Wind: ${wind} MPH`;
@@ -137,10 +138,14 @@ function renderFutureWeather(future5DayArray) {
   cardConatiner.classList.add("row", "row-col-5", "cardcon");
   secContainer.append(cardConatiner);
   for (let index = 0; index < future5DayArray.length; index++) {
-    const element = future5DayArray[index];
-    //console.log(element);
+    // const element = future5DayArray[index];
+    // console.log(element);
     var formatDate = moment(future5DayArray[index].dt*1000).format("MM/DD/YYYY");
-    console.log(formatDate);
+
+    var img = document.createElement("img");
+    let dailyIcons = future5DayArray[index].weather[0].icon;
+    img.src = `http://openweathermap.org/img/wn/${dailyIcons}@2x.png`;
+   
     var col = document.createElement("div");
     col.classList.add("col");
     var textBoxEl = document.createElement("div");
@@ -152,17 +157,13 @@ function renderFutureWeather(future5DayArray) {
     var textUvi = document.createElement("p");
 
     textDay.textContent = formatDate;
-    //console.log(textDay);
     textTemp.textContent = `Temp: ${future5DayArray[index].temp.max} °F`;
-    //console.log(textTemp);
     textWind.textContent = `Wind: ${future5DayArray[index].wind_speed} MPH`;
-    //console.log(textWind);
     textHumidity.textContent = `Humidity: ${future5DayArray[index].humidity}%`;
-    //console.log(textHumidity);
     textUvi.textContent = `UV index: ${future5DayArray[index].uvi}`;
-    //console.log(textUvi);
+    textBoxEl.appendChild(img)
 
-    textBoxEl.append(textDay, textTemp, textWind, textHumidity, textUvi);
+    textBoxEl.append(textDay,  textTemp, textWind, textHumidity, textUvi);
     col.append(textBoxEl);
     cardConatiner.append(col);
   }

@@ -54,7 +54,8 @@ button:hover{
 }
 
 .container {
-    padding: 0;
+    margin-left: 10px;
+    margin-right: 20px;
 }
 
 .weather-section{
@@ -63,9 +64,7 @@ button:hover{
     padding: 15px;
 }
 
-.hidden {
-    display: none;
-}
+
 
 .buttonAppend {
     display: flex;
