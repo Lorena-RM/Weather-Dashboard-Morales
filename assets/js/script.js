@@ -33,7 +33,7 @@ function saveToLocalStorage(cityName) {
 function searchCity(cityName) {
   //console.log ("this is working!");
 
-  let requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKeyVar}`;
+  let requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKeyVar}`;
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -52,7 +52,7 @@ function searchCity(cityName) {
 }
 
 function fiveDayWeather(lat, lon, cityName) {
-  let requestUrl2 = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKeyVar}`;
+  let requestUrl2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKeyVar}`;
 
   //let requestUrl2 = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKeyVar2}`
 
