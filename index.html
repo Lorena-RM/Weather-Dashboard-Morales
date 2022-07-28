@@ -15,19 +15,19 @@
     <header>
         <h1>Weather Dashboard</h1>
     </header>
-    <hr>
-    <main>
+    
+    <main class="mt-3 mb">
+        <!--div for search form-->
         <div class="mb-3 form-wrapper">
             <h2>Search for a City:</h2>
-            <form class="form-floating mb-3" id="search-form">
-                <input type="city" id="floatingInputValue" class="mb-3 form-control searchBox" placeholder="ex. Denver">
-                <button class="searchBtn mb-3" type="submit">Seach</button>
-            </form>
-            
+            <form class="mb-3" id="search-form">
+                <input type="city" class="mb-3 form-control searchBox" placeholder="ex. Denver">
+                <button class="searchBtn mb-3" type="submit">Search</button>
+            </form> 
             <div class="buttonAppend"></div>
         </div>
        
-       
+       <!--section to append items onto(using javascript to create new elements)-->
         <section class="container appendsection">
         
         </section>
