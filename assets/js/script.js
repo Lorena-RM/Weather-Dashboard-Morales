@@ -69,11 +69,11 @@ function fiveDayWeather(lat, lon, cityName) {
       const uvi = data.current.uvi;
      
       //declaring variables for future data
-      let day1 = data.daily[0];
-      let day2 = data.daily[1];
-      let day3 = data.daily[2];
-      let day4 = data.daily[3];
-      let day5 = data.daily[4];
+      let day1 = data.daily[1];
+      let day2 = data.daily[2];
+      let day3 = data.daily[3];
+      let day4 = data.daily[4];
+      let day5 = data.daily[5];
 
       //creating Array for daily, using declared variables
       let future5DayArray = [day1, day2, day3, day4, day5];
